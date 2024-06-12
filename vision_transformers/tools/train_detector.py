@@ -181,6 +181,8 @@ def main(args):
     OUT_DIR = set_training_dir(args.name)
     COLORS = np.random.uniform(0, 1, size=(len(CLASSES), 3))
     set_log(OUT_DIR)
+
+    # Create datasets
     train_dataset = create_train_dataset(
         TRAIN_DIR_IMAGES, 
         TRAIN_DIR_LABELS,
@@ -199,19 +201,22 @@ def main(args):
         square_training=True
     )
 
+    # Debug: print the length of datasets
+    print(f"Number of samples in the training dataset: {len(train_dataset)}")
+    print(f"Number of samples in the validation dataset: {len(valid_dataset)}")
+
+    if len(train_dataset) == 0:
+        raise ValueError("The training dataset is empty. Please check the data path and ensure the dataset is correctly loaded.")
+    if len(valid_dataset) == 0:
+        raise ValueError("The validation dataset is empty. Please check the data path and ensure the dataset is correctly loaded.")
+
     if IS_DISTRIBUTED:
-        train_sampler = distributed.DistributedSampler(
-            train_dataset
-        )
-        valid_sampler = distributed.DistributedSampler(
-            valid_dataset, shuffle=False
-        )
+        train_sampler = distributed.DistributedSampler(train_dataset)
+        valid_sampler = distributed.DistributedSampler(valid_dataset, shuffle=False)
     else:
         train_sampler = RandomSampler(train_dataset)
         valid_sampler = SequentialSampler(valid_dataset)
 
-    # train_batch_sampler = BatchSampler(train_sampler, BATCH_SIZE, drop_last=False)
-    # valid_batch_sampler = BatchSampler(valid_sampler, BATCH_SIZE, drop_last=False)
     train_loader = create_train_loader(
         train_dataset, BATCH_SIZE, NUM_WORKERS, batch_sampler=train_sampler
     )
@@ -222,7 +227,7 @@ def main(args):
     if VISUALIZE_TRANSFORMED_IMAGES:
         show_tranformed_image(train_loader, DEVICE, CLASSES, COLORS)
 
-    matcher = HungarianMatcher(cost_giou=2,cost_class=1,cost_bbox=5)
+    matcher = HungarianMatcher(cost_giou=2, cost_class=1, cost_bbox=5)
     weight_dict = {'loss_ce': 1, 'loss_bbox': 5, 'loss_giou': 2}
     losses = ['labels', 'boxes', 'cardinality']
     model = DETRModel(num_classes=NUM_CLASSES, model=args.model)
@@ -241,7 +246,6 @@ def main(args):
         )
     except:
         print(model)
-        # Total parameters and trainable parameters.
         total_params = sum(p.numel() for p in model.parameters())
         print(f"{total_params:,} total parameters.")
         total_trainable_params = sum(
@@ -257,7 +261,6 @@ def main(args):
     )
     criterion = criterion.to(DEVICE)
 
-    # TODO Check how this works when with model params differently in model.py
     lr_dict = {
         'backbone': 0.1,
         'transformer': 1,
@@ -280,9 +283,6 @@ def main(args):
     val_map_05 = []
     val_map = []
 
-    # if torch.__version__ >= '2.0.0':
-    #     model = torch.compile(model)
-
     for epoch in range(EPOCHS):
         train_loss = train(
             train_loader, 
@@ -292,8 +292,6 @@ def main(args):
             DEVICE, 
             epoch=epoch
         )
-        # if not args.no_lrs:
-        #     lr_scheduler.step()
         stats, coco_evaluator = evaluate(
             model=model,
             criterion=criterion,
@@ -303,15 +301,12 @@ def main(args):
             output_dir='outputs'
         )
         
-        # COCO log to train log file.
         coco_log(OUT_DIR, stats)
 
         val_map_05.append(stats['coco_eval_bbox'][1])
         val_map.append(stats['coco_eval_bbox'][0])
 
-        # Save mAP plots.
         save_mAP(OUT_DIR, val_map_05, val_map)
-        # Save the model dictionary only for the current epoch.
         save_model_state(model, OUT_DIR, data_configs, args.model)
         save_best_model(
             model, 
