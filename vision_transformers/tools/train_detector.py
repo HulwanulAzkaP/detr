@@ -114,14 +114,14 @@ def parse_opt():
         '--learning-rate',
         dest='learning_rate',
         type=float,
-        default=5e-5
+        default=5e-4
     )
     parser.add_argument(
         '-lrb',
         '--lr-backbone',
         dest='lr_backbone',
         type=float,
-        default=1e-6
+        default=2e-4
     )
     parser.add_argument(
         '--weight-decay',
