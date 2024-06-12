@@ -1,0 +1,14 @@
+<annotation>
+	<folder></folder>
+	<filename>smoke_image_28_jpg.rf.3f67f9c547e34ae7a4040fa45666316a.jpg</filename>
+	<path>smoke_image_28_jpg.rf.3f67f9c547e34ae7a4040fa45666316a.jpg</path>
+	<source>
+		<database>roboflow.com</database>
+	</source>
+	<size>
+		<width>640</width>
+		<height>640</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+</annotation>

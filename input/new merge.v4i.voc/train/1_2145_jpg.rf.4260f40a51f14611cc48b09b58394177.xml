@@ -1,0 +1,27 @@
+<annotation>
+	<folder></folder>
+	<filename>1_2145_jpg.rf.4260f40a51f14611cc48b09b58394177.jpg</filename>
+	<path>1_2145_jpg.rf.4260f40a51f14611cc48b09b58394177.jpg</path>
+	<source>
+		<database>roboflow.com</database>
+	</source>
+	<size>
+		<width>640</width>
+		<height>640</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>asap</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<occluded>0</occluded>
+		<bndbox>
+			<xmin>1</xmin>
+			<xmax>150</xmax>
+			<ymin>229</ymin>
+			<ymax>538</ymax>
+		</bndbox>
+	</object>
+</annotation>

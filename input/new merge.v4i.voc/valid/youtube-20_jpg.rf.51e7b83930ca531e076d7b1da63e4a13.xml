@@ -1,0 +1,14 @@
+<annotation>
+	<folder></folder>
+	<filename>youtube-20_jpg.rf.51e7b83930ca531e076d7b1da63e4a13.jpg</filename>
+	<path>youtube-20_jpg.rf.51e7b83930ca531e076d7b1da63e4a13.jpg</path>
+	<source>
+		<database>roboflow.com</database>
+	</source>
+	<size>
+		<width>640</width>
+		<height>640</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+</annotation>

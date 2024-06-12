@@ -1,0 +1,27 @@
+<annotation>
+	<folder></folder>
+	<filename>smoke_2315_png.rf.5007aa14abac392f4e9d70d255abc98b.jpg</filename>
+	<path>smoke_2315_png.rf.5007aa14abac392f4e9d70d255abc98b.jpg</path>
+	<source>
+		<database>roboflow.com</database>
+	</source>
+	<size>
+		<width>640</width>
+		<height>640</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>asap</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<occluded>0</occluded>
+		<bndbox>
+			<xmin>263</xmin>
+			<xmax>532</xmax>
+			<ymin>186</ymin>
+			<ymax>355</ymax>
+		</bndbox>
+	</object>
+</annotation>

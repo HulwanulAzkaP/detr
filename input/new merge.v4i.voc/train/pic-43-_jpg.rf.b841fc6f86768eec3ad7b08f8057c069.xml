@@ -1,0 +1,27 @@
+<annotation>
+	<folder></folder>
+	<filename>pic-43-_jpg.rf.b841fc6f86768eec3ad7b08f8057c069.jpg</filename>
+	<path>pic-43-_jpg.rf.b841fc6f86768eec3ad7b08f8057c069.jpg</path>
+	<source>
+		<database>roboflow.com</database>
+	</source>
+	<size>
+		<width>640</width>
+		<height>640</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>api</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<occluded>0</occluded>
+		<bndbox>
+			<xmin>150</xmin>
+			<xmax>327</xmax>
+			<ymin>131</ymin>
+			<ymax>535</ymax>
+		</bndbox>
+	</object>
+</annotation>
